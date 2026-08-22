@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 
 const IMAGES = [
   { id: "1540968221243-29f5d70540bf", alt: "Translucent jellyfish drifting in dark water" },
@@ -21,7 +21,44 @@ type CarouselStyle = CSSProperties & { "--count": number };
 type CardStyle = CSSProperties & { "--index": number };
 
 export function JellyfishCarousel() {
-  const [paused, setPaused] = useState(false);
+  const [resizing, setResizing] = useState(false);
+  const [geometryVersion, setGeometryVersion] = useState(0);
+
+  useEffect(() => {
+    let settleTimer: number | undefined;
+    let settleFrame: number | undefined;
+
+    const handleResize = () => {
+      setResizing(true);
+      window.clearTimeout(settleTimer);
+
+      settleTimer = window.setTimeout(() => {
+        setGeometryVersion((version) => version + 1);
+        settleFrame = window.requestAnimationFrame(() => {
+          setResizing(false);
+        });
+      }, 250);
+    };
+
+    const resizeObserver = new ResizeObserver(handleResize);
+
+    window.addEventListener("resize", handleResize, { passive: true });
+    window.visualViewport?.addEventListener("resize", handleResize, {
+      passive: true,
+    });
+    resizeObserver.observe(document.documentElement);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.visualViewport?.removeEventListener("resize", handleResize);
+      resizeObserver.disconnect();
+      window.clearTimeout(settleTimer);
+
+      if (settleFrame !== undefined) {
+        window.cancelAnimationFrame(settleFrame);
+      }
+    };
+  }, []);
 
   return (
     <div className="carousel-wrap">
@@ -32,14 +69,15 @@ export function JellyfishCarousel() {
         aria-label="Jellyfish photography carousel"
       >
         <div
-          className={`carousel ${paused ? "is-paused" : ""}`}
+          key={geometryVersion}
+          className={`carousel ${resizing ? "is-resizing" : ""}`}
           style={{ "--count": IMAGES.length } as CarouselStyle}
         >
           {IMAGES.map((image, index) => (
             <img
               className="card"
               key={image.id}
-              src={`https://images.unsplash.com/photo-${image.id}?auto=format&fit=crop&w=700&q=85`}
+              src={`/jellyfish/${image.id}.jpg`}
               style={{ "--index": index } as CardStyle}
               alt={image.alt}
               width="700"
@@ -49,16 +87,6 @@ export function JellyfishCarousel() {
           ))}
         </div>
       </div>
-
-      <button
-        className="motion-control"
-        type="button"
-        onClick={() => setPaused((current) => !current)}
-        aria-pressed={paused}
-      >
-        <span className={`control-icon ${paused ? "play" : "pause"}`} aria-hidden="true" />
-        {paused ? "Resume rotation" : "Pause rotation"}
-      </button>
     </div>
   );
 }
