@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background: #f5f0e7;
+  color: #123831;
+  font-family: "Manrope", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+.unified-preview-shell {
+  display: grid;
+  width: 100%;
+  height: 100svh;
+  min-height: 30rem;
+  place-items: center;
+  background: #ded8ce;
+}
+
+.unified-preview-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.96), transparent 38%),
+    #f5f0e7;
+}
+
+.unified-preview-shell.is-compact .unified-preview-frame {
+  width: min(24.375rem, 100%);
+}
+
+.unified-preview-label {
+  position: absolute;
+  z-index: 4;
+  top: 1.5rem;
+  left: 1.5rem;
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid rgba(18, 56, 49, 0.15);
+  border-radius: 0.75rem;
+  background: rgba(245, 240, 231, 0.82);
+  backdrop-filter: blur(12px);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+.unified-preview-label strong {
+  font-size: 0.82rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.unified-preview-trigger {
+  position: absolute;
+  z-index: 4;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  min-width: 9.5rem;
+  min-height: 2.9rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+.unified-preview-trigger:focus-visible {
+  outline: 3px solid #e36446;
+  outline-offset: 3px;
+}
+
+.unified-preview-shell.is-compact .unified-preview-trigger {
+  right: 50%;
+  transform: translateX(50%);
+}

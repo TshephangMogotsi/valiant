@@ -1,0 +1,64 @@
+.unified-carousel-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 30rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.unified-carousel-stage::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--unified-carousel-background, #fff),
+    transparent 13% 87%,
+    var(--unified-carousel-background, #fff)
+  );
+  content: "";
+  opacity: var(--unified-edge-fade-opacity, 1);
+  pointer-events: none;
+}
+
+.unified-carousel-surface {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.unified-carousel-panel-base {
+  fill: #000;
+}
+
+.unified-carousel-panel-image {
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.unified-carousel-panel-edge {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.58);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.unified-carousel-descriptions {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .unified-carousel-panel-image {
+    transition: none;
+  }
+}

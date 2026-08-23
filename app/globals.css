@@ -18,9 +18,7 @@ body {
 
 body {
   overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.96), transparent 38%),
-    var(--paper);
+  background: #fff;
   color: var(--ink);
   font-family: "Manrope", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
@@ -30,16 +28,6 @@ body {
   position: relative;
   min-height: 100svh;
   isolation: isolate;
-}
-
-.page-shell::before {
-  position: fixed;
-  z-index: -1;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
-  content: "";
-  opacity: 0.08;
-  pointer-events: none;
 }
 
 .hero {
@@ -87,7 +75,7 @@ body {
 
 .project-cta {
   position: absolute;
-  bottom: clamp(7.3rem, 16vh, 10.5rem);
+  bottom: clamp(9rem, 18vh, 11.5rem);
   display: grid;
   justify-items: center;
   pointer-events: auto;
@@ -100,9 +88,12 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0.75rem 2rem;
+  border: 0;
   border-radius: 999px;
   background: #000;
   color: #fff;
+  cursor: pointer;
+  font-family: inherit;
   font-size: clamp(1rem, 1.3vw, 1.25rem);
   font-weight: 400;
   line-height: 1;
@@ -123,10 +114,174 @@ body {
 
 .outro-copy {
   position: absolute;
-  bottom: clamp(2.5rem, 7.4vh, 5rem);
+  bottom: clamp(4.8rem, 10vh, 7rem);
   max-width: min(90vw, 52rem);
   font-size: clamp(0.875rem, 1.1vw, 1.05rem);
   line-height: 1.2;
+}
+
+.home-contact-pills {
+  position: absolute;
+  right: 1rem;
+  bottom: clamp(0.9rem, 2.6vh, 1.75rem);
+  left: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.5rem, 0.9vw, 0.85rem);
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+.home-contact-pill {
+  display: inline-flex;
+  min-height: 1.65rem;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.18rem 0.62rem;
+  border: 1.5px solid #bdbdbd;
+  border-radius: 999px;
+  background: #fff;
+  color: #0a0a0a;
+  font-family: inherit;
+  font-size: clamp(0.64rem, 0.72vw, 0.75rem);
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.home-contact-pill-icon {
+  display: block;
+  flex: 0 0 auto;
+  width: 0.82rem;
+  height: 0.82rem;
+  background: currentColor;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+.home-contact-pill:hover {
+  border-color: #000;
+  background: #000;
+  color: #fff;
+}
+
+.home-contact-pill-expandable {
+  gap: 0;
+  overflow: hidden;
+}
+
+.home-contact-pill-core,
+.home-contact-pill-actions {
+  display: inline-flex;
+  align-items: center;
+}
+
+.home-contact-pill-core {
+  gap: 0.42rem;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.home-contact-pill-core:focus-visible {
+  border-radius: 999px;
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+}
+
+.home-contact-pill-actions {
+  max-width: 0;
+  gap: 0.16rem;
+  margin-left: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    max-width 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    margin-left 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 120ms ease;
+}
+
+.home-contact-pill-expandable:hover,
+.home-contact-pill-expandable:focus-within {
+  border-color: #000;
+  background: #000;
+  color: #fff;
+}
+
+.home-contact-pill-expandable:hover .home-contact-pill-actions,
+.home-contact-pill-expandable:focus-within .home-contact-pill-actions {
+  max-width: 3rem;
+  margin-left: 0.42rem;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.home-contact-pill-action {
+  display: grid;
+  flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.16);
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 140ms ease,
+    color 140ms ease;
+}
+
+.home-contact-pill-action svg {
+  width: 0.72rem;
+  height: 0.72rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+.home-contact-pill-action:hover,
+.home-contact-pill-action:focus-visible {
+  background: #fff;
+  color: #000;
+  outline: none;
+}
+
+.home-contact-pill-linkedin {
+  cursor: pointer;
+}
+
+.home-contact-pill-whole-link:hover .home-contact-pill-action,
+.home-contact-pill-whole-link:focus-visible .home-contact-pill-action,
+.home-contact-pill-whole-copy:hover .home-contact-pill-action,
+.home-contact-pill-whole-copy:focus-visible .home-contact-pill-action {
+  background: #fff;
+  color: #000;
+}
+
+.home-contact-pill-whole-copy {
+  cursor: pointer;
+}
+
+a.home-contact-pill:focus-visible,
+button.home-contact-pill:focus-visible {
+  outline: 3px solid #e36446;
+  outline-offset: 3px;
 }
 
 @keyframes project-button-wobble {
@@ -155,82 +310,43 @@ body {
   }
 }
 
-.carousel-wrap {
-  position: relative;
-  width: 100%;
-}
-
-.scene,
-.carousel {
-  display: grid;
-}
-
-.scene {
-  position: relative;
+.hero > .unified-carousel-stage {
+  z-index: 1;
+  grid-area: 1 / 1;
   width: min(100%, 105rem);
   height: 100svh;
   margin-inline: auto;
-  overflow: hidden;
-  perspective: 35em;
-  isolation: isolate;
 }
 
-.scene::after {
-  position: absolute;
-  z-index: 2;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    var(--paper),
-    transparent 20% 80%,
-    var(--paper)
-  );
-  content: "";
-  pointer-events: none;
-}
-
-.carousel {
-  --card-width: 17.5em;
-  --angle: calc(1turn / var(--count));
-  z-index: 1;
-  place-self: center;
-  transform-style: preserve-3d;
-  animation: orbit 32s linear infinite;
-  rotate: y 0turn;
-}
-
-.carousel.is-resizing {
-  animation: none;
-  rotate: y 0turn;
-}
-
-@keyframes orbit {
-  to {
-    rotate: y 1turn;
-  }
-}
-
-.card {
-  grid-area: 1 / 1;
-  width: var(--card-width);
-  height: auto;
-  aspect-ratio: 7 / 10;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: clamp(0.8rem, 2vw, 1.5rem);
-  box-shadow: 0 1.5rem 4rem rgba(20, 45, 40, 0.16);
-  object-fit: cover;
-  backface-visibility: hidden;
-  transform: rotateY(calc(var(--index) * var(--angle)))
-    translateZ(calc(-1 * (0.5 * var(--card-width) + 0.5rem) / tan(0.5 * var(--angle))));
+.hero > .unified-carousel-stage:is(
+    [data-animation-state="expanding"],
+    [data-animation-state="contracting"],
+    [data-animation-state="complete"]
+  ) {
+  z-index: 20;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .carousel {
-    animation-duration: 128s;
-  }
-
   .project-button:hover {
     animation: none;
+  }
+
+  .home-contact-pill {
+    transition: none;
+  }
+
+  .home-contact-pill-actions,
+  .home-contact-pill-action {
+    transition: none;
+  }
+}
+
+@media (hover: none) {
+  .home-contact-pill-expandable .home-contact-pill-actions {
+    max-width: 3rem;
+    margin-left: 0.42rem;
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 
@@ -254,12 +370,24 @@ body {
   }
 
   .project-cta {
-    bottom: 9.25rem;
+    bottom: 13rem;
   }
 
   .outro-copy {
     right: 1.5rem;
-    bottom: 2rem;
+    bottom: 7rem;
     left: 1.5rem;
+  }
+
+  .home-contact-pills {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    gap: 0.4rem;
+  }
+
+  .home-contact-pill {
+    min-height: 1.6rem;
+    padding: 0.18rem 0.55rem;
   }
 }
